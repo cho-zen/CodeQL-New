@@ -6,15 +6,16 @@ on:
   pull_request:
     # The branches below must be a subset of the branches above
     branches: [ "master" ]
-  schedule:
-    - cron: '44 11 * * 5'
 
 jobs:
   eval_check:
     name: Check for eval usage in Python
-    runs-on: ubuntu-latest
+    runs-on:  ${{ (matrix.language == 'swift' && 'macos-latest') || 'ubuntu-latest' }}
 
     steps:
+    - name: Set up CodeQL
+      uses: github/codeql-action/setup@v2
+    
     - name: Checkout code
       uses: actions/checkout@v2
 
