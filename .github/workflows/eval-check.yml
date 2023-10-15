@@ -14,7 +14,7 @@ jobs:
 
     steps:
     - name: Set up CodeQL
-      uses: github/codeql-action/setup@master
+      uses: github/codeql-action/setup@v2
     
     - name: Checkout code
       uses: actions/checkout@v2
