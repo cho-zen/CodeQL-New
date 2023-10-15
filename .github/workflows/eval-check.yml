@@ -1,0 +1,37 @@
+name: "Eval Check"
+
+on:
+  push:
+    branches:
+      - "main"  # Change to your default branch
+  pull_request:
+    branches:
+      - "main"  # Change to your default branch
+
+jobs:
+  eval_check:
+    name: Check for eval usage in Python
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9  # Use the Python version you need
+
+    - name: Run CodeQL Eval Check
+      run: |
+        codeql database create --language=python . --name=mydb
+        codeql database analyze mydb python-code-scanning.ql
+
+    - name: Check for Eval
+      run: |
+        results=$(codeql database evaluate mydb "select file, location from FunctionCall where getTarget().getName() = 'eval'")
+        if [ -n "$results" ]; then
+          echo "Eval function found in code. Please review and remove."
+          echo "$results"
+          exit 1
+        fi
