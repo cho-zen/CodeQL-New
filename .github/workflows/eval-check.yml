@@ -2,11 +2,12 @@ name: "Eval Check"
 
 on:
   push:
-    branches:
-      - "main"  # Change to your default branch
+    branches: [ "master" ]
   pull_request:
-    branches:
-      - "main"  # Change to your default branch
+    # The branches below must be a subset of the branches above
+    branches: [ "master" ]
+  schedule:
+    - cron: '44 11 * * 5'
 
 jobs:
   eval_check:
