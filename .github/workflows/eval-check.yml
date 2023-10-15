@@ -14,13 +14,13 @@ jobs:
 
     steps:
     - name: Set up CodeQL
-      uses: github/codeql-action/setup@v2
+      uses: github/codeql-action/setup@v3
     
     - name: Checkout code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     - name: Set up Python
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v3
       with:
         python-version: 3.9  # Use the Python version you need
 
